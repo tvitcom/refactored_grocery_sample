@@ -1,7 +1,6 @@
 package shoppinglistrepo
 
 import (
-	"fmt"
 	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/types"
 	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/util"
 )
@@ -39,9 +38,6 @@ func FindById(id int64) (types.ShoppingList, error) {
 func Put(id int64, shoppingList types.ShoppingList) (types.ShoppingList, error) {
 	db := util.DBConn()
 	defer db.Close()
-
-	fmt.Println(id)
-	fmt.Println(shoppingList)
 
 	query := "UPDATE shopping_list SET name = ?, qty = ?, unit = ? WHERE id = ?"
 	stmt, stmtErr := db.Prepare(query)
