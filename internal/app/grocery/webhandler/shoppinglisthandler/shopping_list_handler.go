@@ -1,4 +1,4 @@
-package shopping_list_handler
+package shoppinglisthandler
 
 import (
 	"fmt"
