@@ -42,7 +42,7 @@ func CreateHandler(c *gin.Context) {
 		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
 		util.PanicError(insertErr)
 	} else {
-		c.Redirect(http.StatusFound, "show/"+strconv.FormatInt(id, 10))
+		c.Redirect(http.StatusFound, "/shopping-list/show/"+strconv.FormatInt(id, 10))
 	}
 }
 
