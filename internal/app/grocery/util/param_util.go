@@ -12,7 +12,7 @@ func GetInt64IdFromReqContext(c *gin.Context) int64 {
 	return id
 }
 
-func GetLimitOffset(c *gin.Context) (int, int) {
+func GetLimitOffset(c *gin.Context) (int, int, int) {
 	pageParam, _ := c.GetQuery("page")
 	page, _ := strconv.Atoi(pageParam)
 	if page == 0 {
@@ -22,5 +22,5 @@ func GetLimitOffset(c *gin.Context) (int, int) {
 	limit := 10
 	offset := limit * (page - 1)
 
-	return limit, offset
+	return limit, offset, page
 }

@@ -25,6 +25,17 @@ func IndexWithPage(limit int, offset int) []types.ShoppingList {
 	return shoppingLists
 }
 
+func Count() int {
+	db := util.DBConn()
+	defer db.Close()
+
+	var count int
+	query := "SELECT COUNT(*) FROM shopping_list"
+	row := db.QueryRow(query)
+	row.Scan(&count)
+	return count
+}
+
 func Create(shoppingList types.ShoppingList) (int64, error) {
 	db := util.DBConn()
 	defer db.Close()

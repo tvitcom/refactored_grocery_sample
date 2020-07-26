@@ -1,0 +1,16 @@
+{{ define "common/pagination.tmpl" }}
+    <div>
+        <p>Page {{ .Page }} of  {{ .TotalPages }}</p>
+        {{ if (eq .Page 1) }}
+            <p><a href="/{{ .Model }}/?page={{ .NextPage }}">Next</a></p>
+        {{ else if (eq .Page .TotalPages) }}
+            <p><a href="/{{ .Model }}/?page={{ .PrevPage }}">Previous</a></p>
+        {{ else }}
+            <p>
+                <a href="/{{ .Model }}/?page={{ .PrevPage }}">Previous</a>
+                |
+                <a href="/{{ .Model }}/?page={{ .NextPage }}">Next</a>
+            </p>
+        {{ end }}
+    </div>
+{{ end }}

@@ -88,10 +88,14 @@ func UpdateHandler(c *gin.Context) {
 }
 
 func IndexHandler(c *gin.Context) {
-	limit, offset := util.GetLimitOffset(c)
+	limit, offset, page := util.GetLimitOffset(c)
 	shoppingLists := shoppinglistrepo.IndexWithPage(limit, offset)
+	count := shoppinglistrepo.Count()
+	pagination := util.ProcessPagination("shopping-list", count, page, limit)
 
-	m := make(map[string][]types.ShoppingList)
+	m := make(map[string]interface{})
 	m["shoppingLists"] = shoppingLists
+	m["pagination"] = pagination
+
 	c.HTML(http.StatusOK, "shopping_list/index.tmpl", m)
 }
