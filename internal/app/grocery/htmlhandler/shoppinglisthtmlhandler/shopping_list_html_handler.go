@@ -15,10 +15,6 @@ func ShowHandler(c *gin.Context) {
 	if shoppingList.Id == 0 {
 		c.HTML(http.StatusNotFound, "common/not_found.tmpl", gin.H{})
 	} else {
-		c.HTML(http.StatusOK, "shopping_list/show.tmpl", gin.H{
-			"name": shoppingList.Name,
-			"qty":  shoppingList.Qty,
-			"unit": shoppingList.Unit,
-		})
+		c.HTML(http.StatusOK, "shopping_list/show.tmpl", shoppingList)
 	}
 }
