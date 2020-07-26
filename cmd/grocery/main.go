@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	log.Print("Starting the templates app")
+	log.Print("Starting the golang grocery app with templates")
 	r := gin.Default()
 	webapi.Route(r)
 
