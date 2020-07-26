@@ -5,6 +5,26 @@ import (
 	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/util"
 )
 
+func IndexWithPage(limit int, offset int) []types.ShoppingList {
+	db := util.DBConn()
+	defer db.Close()
+
+	query := "SELECT id, name, qty, unit FROM shopping_list LIMIT ? OFFSET ?"
+	rows, err := db.Query(query, limit, offset)
+	defer rows.Close()
+	util.PanicError(err)
+
+	var shoppingLists []types.ShoppingList
+	for rows.Next() {
+		var sl types.ShoppingList
+
+		err = rows.Scan(&sl.Id, &sl.Name, &sl.Qty, &sl.Unit)
+		shoppingLists = append(shoppingLists, sl)
+	}
+
+	return shoppingLists
+}
+
 func Create(shoppingList types.ShoppingList) (int64, error) {
 	db := util.DBConn()
 	defer db.Close()
