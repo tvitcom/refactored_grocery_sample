@@ -11,5 +11,6 @@ func Route(r *gin.Engine) *gin.Engine {
 	r.POST("shopping-list/", shoppinglisthtmlhandler.CreateHandler)
 	r.GET("shopping-list/edit/:id", shoppinglisthtmlhandler.EditHandler)
 	r.POST("shopping-list/update/:id", shoppinglisthtmlhandler.UpdateHandler)
+	r.GET("shopping-list/", shoppinglisthtmlhandler.IndexHandler)
 	return r
 }

@@ -86,3 +86,12 @@ func UpdateHandler(c *gin.Context) {
 		c.Redirect(http.StatusFound, "/shopping-list/show/"+strconv.FormatInt(id, 10))
 	}
 }
+
+func IndexHandler(c *gin.Context) {
+	limit, offset := util.GetLimitOffset(c)
+	shoppingLists := shoppinglistrepo.IndexWithPage(limit, offset)
+
+	m := make(map[string][]types.ShoppingList)
+	m["shoppingLists"] = shoppingLists
+	c.HTML(http.StatusOK, "shopping_list/index.tmpl", m)
+}

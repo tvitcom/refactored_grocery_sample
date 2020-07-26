@@ -1,0 +1,19 @@
+{{ define "shopping_list/index.tmpl" }}
+    <div>Shopping List</div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+            <th></th>
+        </tr>
+        {{ range .shoppingLists }}
+            <tr>
+                <td>{{ .Name }}</td>
+                <td>{{ .Qty }}</td>
+                <td>{{ .Unit }}</td>
+                <td><a href="/shopping-list/show/{{.Id}}">Detail</a></td>
+            </tr>
+        {{ end }}
+    </table>
+{{ end }}
