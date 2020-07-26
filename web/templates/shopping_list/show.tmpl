@@ -3,6 +3,8 @@
     <body>
         <p>Name: {{ .Name }}</p>
         <p>Quantity: {{ .Qty }} {{ .Unit }}</p>
+
+        <a href="/shopping-list/delete/{{ .Id }}">Delete</a>
     </body>
 </html>
 {{ end }}

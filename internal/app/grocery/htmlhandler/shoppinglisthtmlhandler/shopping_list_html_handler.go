@@ -99,3 +99,22 @@ func IndexHandler(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "shopping_list/index.tmpl", m)
 }
+
+func DeleteHandler(c *gin.Context) {
+	id := util.GetInt64IdFromReqContext(c)
+	shoppingList, _ := shoppinglistrepo.FindById(id)
+
+	// Check if resource exist
+	if shoppingList.Id == 0 {
+		c.HTML(http.StatusNotFound, "common/not_found.tmpl", gin.H{})
+		return
+	}
+
+	err := shoppinglistrepo.Delete(shoppingList)
+	if err != nil {
+		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
+		return
+	} else {
+		c.Redirect(http.StatusFound, "/shopping-list/")
+	}
+}
