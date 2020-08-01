@@ -1,11 +1,7 @@
 {{ define "shopping_list/show.tmpl" }}
-<html>
-    <body>
-        <p>Name: {{ .Name }}</p>
-        <p>Quantity: {{ .Qty }} {{ .Unit }}</p>
+<p>Name: {{ .Name }}</p>
+<p>Quantity: {{ .Qty }} {{ .Unit }}</p>
 
-        <a href="/shopping-list/edit/{{ .Id }}">Edit</a>
-        <a href="/shopping-list/delete/{{ .Id }}">Delete</a>
-    </body>
-</html>
+<a href="/shopping-list/edit/{{ .Id }}">Edit</a>
+<a href="/shopping-list/delete/{{ .Id }}">Delete</a>
 {{ end }}
