@@ -2,6 +2,7 @@
 <p>Name: {{ .Name }}</p>
 <p>Quantity: {{ .Qty }} {{ .Unit }}</p>
 
+<a href="/shopping-list">List</a>
 <a href="/shopping-list/edit/{{ .Id }}">Edit</a>
 <a href="/shopping-list/delete/{{ .Id }}">Delete</a>
 {{ end }}

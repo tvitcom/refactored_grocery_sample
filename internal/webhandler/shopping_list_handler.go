@@ -2,9 +2,9 @@ package shoppinglisthandler
 
 import (
 	"fmt"
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/repo/shoppinglistrepo"
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/types"
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/util"
+	"github.com/dwahyudi/golang_grocery_sample/internal/repo"
+	"github.com/dwahyudi/golang_grocery_sample/internal/types"
+	"github.com/dwahyudi/golang_grocery_sample/internal/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -20,7 +20,7 @@ func CreateHandler(c *gin.Context) {
 	}
 
 	// Inserting data
-	id, insertErr := shoppinglistrepo.Create(shoppingList)
+	id, insertErr := repo.Create(shoppingList)
 	if insertErr != nil {
 		c.JSON(http.StatusInternalServerError, fmt.Sprintf("Something wrong on our server"))
 		util.PanicError(insertErr)
@@ -32,7 +32,7 @@ func CreateHandler(c *gin.Context) {
 
 func ShowHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := shoppinglistrepo.FindById(id)
+	shoppingList, _ := repo.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -53,14 +53,14 @@ func PutHandler(c *gin.Context) {
 	}
 
 	// Check if resource exist
-	foundShoppingList, _ := shoppinglistrepo.FindById(id)
+	foundShoppingList, _ := repo.FindById(id)
 	if foundShoppingList.Id == 0 {
 		c.JSON(http.StatusNotFound, "Not found")
 		return
 	}
 
 	// Updating data
-	shoppingList, err := shoppinglistrepo.Put(foundShoppingList.Id, shoppingList)
+	shoppingList, err := repo.Put(foundShoppingList.Id, shoppingList)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
@@ -73,14 +73,14 @@ func DeleteHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
 
 	// Check if resource exist
-	foundShoppingList, _ := shoppinglistrepo.FindById(id)
+	foundShoppingList, _ := repo.FindById(id)
 	if foundShoppingList.Id == 0 {
 		c.JSON(http.StatusNotFound, "Not found")
 		return
 	}
 
 	// Deleting data
-	err := shoppinglistrepo.Delete(foundShoppingList)
+	err := repo.Delete(foundShoppingList)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {

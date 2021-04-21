@@ -1,9 +1,9 @@
-package shoppinglisthtmlhandler
+package htmlhandler
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/repo/shoppinglistrepo"
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/types"
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/util"
+	"github.com/dwahyudi/golang_grocery_sample/internal/repo"
+	"github.com/dwahyudi/golang_grocery_sample/internal/types"
+	"github.com/dwahyudi/golang_grocery_sample/internal/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
@@ -11,7 +11,7 @@ import (
 
 func ShowHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := shoppinglistrepo.FindById(id)
+	shoppingList, _ := repo.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -37,7 +37,7 @@ func CreateHandler(c *gin.Context) {
 	}
 
 	// Inserting data
-	id, insertErr := shoppinglistrepo.Create(shoppingList)
+	id, insertErr := repo.Create(shoppingList)
 	if insertErr != nil {
 		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
 		util.PanicError(insertErr)
@@ -48,7 +48,7 @@ func CreateHandler(c *gin.Context) {
 
 func EditHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := shoppinglistrepo.FindById(id)
+	shoppingList, _ := repo.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -71,14 +71,14 @@ func UpdateHandler(c *gin.Context) {
 		return
 	}
 
-	foundShoppingList, _ := shoppinglistrepo.FindById(id)
+	foundShoppingList, _ := repo.FindById(id)
 	// Check if resource exist
 	if foundShoppingList.Id == 0 {
 		c.HTML(http.StatusNotFound, "common/not_found.tmpl", gin.H{})
 	}
 
 	// Updating data
-	shoppingList, updateErr := shoppinglistrepo.Put(foundShoppingList.Id, shoppingList)
+	shoppingList, updateErr := repo.Put(foundShoppingList.Id, shoppingList)
 	if updateErr != nil {
 		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
 		util.PanicError(updateErr)
@@ -89,8 +89,8 @@ func UpdateHandler(c *gin.Context) {
 
 func IndexHandler(c *gin.Context) {
 	limit, offset, page := util.GetLimitOffset(c)
-	shoppingLists := shoppinglistrepo.IndexWithPage(limit, offset)
-	count := shoppinglistrepo.Count()
+	shoppingLists := repo.IndexWithPage(limit, offset)
+	count := repo.Count()
 	pagination := util.ProcessPagination("shopping-list", count, page, limit)
 
 	m := make(map[string]interface{})
@@ -102,7 +102,7 @@ func IndexHandler(c *gin.Context) {
 
 func DeleteHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := shoppinglistrepo.FindById(id)
+	shoppingList, _ := repo.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -110,7 +110,7 @@ func DeleteHandler(c *gin.Context) {
 		return
 	}
 
-	err := shoppinglistrepo.Delete(shoppingList)
+	err := repo.Delete(shoppingList)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
 		return

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/web"
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/webapi"
+	"github.com/dwahyudi/golang_grocery_sample/internal/web"
+	"github.com/dwahyudi/golang_grocery_sample/internal/webapi"
 	"github.com/gin-gonic/gin"
 	"log"
 )

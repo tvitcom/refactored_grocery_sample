@@ -1,8 +1,8 @@
-package shoppinglistrepo
+package repo
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/types"
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/util"
+	"github.com/dwahyudi/golang_grocery_sample/internal/types"
+	"github.com/dwahyudi/golang_grocery_sample/internal/util"
 )
 
 func IndexWithPage(limit int, offset int) []types.ShoppingList {

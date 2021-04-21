@@ -1,7 +1,7 @@
 package webapi
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/app/grocery/webhandler/shoppinglisthandler"
+	"github.com/dwahyudi/golang_grocery_sample/internal/webhandler"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 )
