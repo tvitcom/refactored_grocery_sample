@@ -15,10 +15,10 @@ func Route(r *gin.Engine) *gin.Engine {
 
 	v1ShoppingList := r.Group("/v1/shopping-list")
 	{
-		v1ShoppingList.POST("/", shoppinglisthandler.CreateHandler)
-		v1ShoppingList.GET("/:id", shoppinglisthandler.ShowHandler)
-		v1ShoppingList.PUT("/:id", shoppinglisthandler.PutHandler)
-		v1ShoppingList.DELETE("/:id", shoppinglisthandler.DeleteHandler)
+		v1ShoppingList.POST("/", webhandler.CreateHandler)
+		v1ShoppingList.GET("/:id", webhandler.ShowHandler)
+		v1ShoppingList.PUT("/:id", webhandler.PutHandler)
+		v1ShoppingList.DELETE("/:id", webhandler.DeleteHandler)
 	}
 
 	return r

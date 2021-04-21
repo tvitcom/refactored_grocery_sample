@@ -1,4 +1,4 @@
-package shoppinglisthandler
+package webhandler
 
 import (
 	"fmt"
