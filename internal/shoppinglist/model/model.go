@@ -2,6 +2,7 @@ package model
 
 import (
 	"github.com/dwahyudi/golang_grocery_sample/internal/util"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Shoppinglist struct {
@@ -13,7 +14,7 @@ type Shoppinglist struct {
 }
 
 func IndexWithPage(limit int, offset int) []Shoppinglist {
-	db := util.DBConn()
+	db := util.GetDbConn()
 	defer db.Close()
 
 	query := "SELECT id, name, qty, unit FROM shoppinglist LIMIT ? OFFSET ?"
@@ -33,7 +34,7 @@ func IndexWithPage(limit int, offset int) []Shoppinglist {
 }
 
 func Count() int {
-	db := util.DBConn()
+	db := util.GetDbConn()
 	defer db.Close()
 
 	var count int
@@ -44,7 +45,7 @@ func Count() int {
 }
 
 func Create(shoppingList Shoppinglist) (int64, error) {
-	db := util.DBConn()
+	db := util.GetDbConn()
 	defer db.Close()
 
 	query := "INSERT INTO shoppinglist (name, qty, unit) VALUES(?, ?, ?);"
@@ -62,7 +63,7 @@ func Create(shoppingList Shoppinglist) (int64, error) {
 
 func FindById(id int64) (Shoppinglist, error) {
 	var shoppingList Shoppinglist
-	db := util.DBConn()
+	db := util.GetDbConn()
 	defer db.Close()
 
 	query := "SELECT id, name, qty, unit FROM shoppinglist WHERE id = ?;"
@@ -74,7 +75,7 @@ func FindById(id int64) (Shoppinglist, error) {
 }
 
 func Put(id int64, shoppingList Shoppinglist) (Shoppinglist, error) {
-	db := util.DBConn()
+	db := util.GetDbConn()
 	defer db.Close()
 
 	query := "UPDATE shoppinglist SET name = ?, qty = ?, unit = ? WHERE id = ?"
@@ -89,7 +90,7 @@ func Put(id int64, shoppingList Shoppinglist) (Shoppinglist, error) {
 }
 
 func Delete(shoppingList Shoppinglist) error {
-	db := util.DBConn()
+	db := util.GetDbConn()
 	defer db.Close()
 
 	query := "DELETE FROM shoppinglist WHERE id = ?"

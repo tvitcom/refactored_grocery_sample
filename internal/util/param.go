@@ -6,8 +6,9 @@ import (
 )
 
 func GetInt64IdFromReqContext(c *gin.Context) int64 {
-	idParam := c.Param("id")
-	id, _ := strconv.ParseInt(idParam, 10, 64)
+	IdStr := c.Param("id")
+	id, err := strconv.ParseInt(IdStr, 10, 64)
+	PanicError(err)
 	return id
 }
 
