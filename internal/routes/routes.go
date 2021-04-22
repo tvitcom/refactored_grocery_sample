@@ -1,9 +1,9 @@
 package routes
 
 import (
-	//shoppinglistapi "github.com/dwahyudi/golang_grocery_sample/internal/shoppinglist/api"
-	"github.com/dwahyudi/golang_grocery_sample/internal/shoppinglist"
+	//shoppinglistapi "github.com/tvitcom/refactored_grocery_sample/internal/shoppinglist/api"
 	"github.com/gin-gonic/gin"
+	"github.com/tvitcom/refactored_grocery_sample/internal/shoppinglist"
 )
 
 func Route(r *gin.Engine) *gin.Engine {

@@ -1,9 +1,9 @@
 package shoppinglist
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/shoppinglist/model"
-	"github.com/dwahyudi/golang_grocery_sample/internal/util"
 	"github.com/gin-gonic/gin"
+	"github.com/tvitcom/refactored_grocery_sample/internal/shoppinglist/model"
+	"github.com/tvitcom/refactored_grocery_sample/internal/util"
 	"net/http"
 	"strconv"
 )

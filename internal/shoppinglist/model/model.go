@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/util"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/tvitcom/refactored_grocery_sample/internal/util"
 )
 
 type Shoppinglist struct {

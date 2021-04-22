@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/routes"
 	"github.com/gin-gonic/gin"
+	"github.com/tvitcom/refactored_grocery_sample/internal/routes"
 	"log"
 )
 

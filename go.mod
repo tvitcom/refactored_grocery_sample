@@ -1,4 +1,4 @@
-module github.com/dwahyudi/golang_grocery_sample
+module github.com/tvitcom/refactored_grocery_sample
 
 go 1.14
 
