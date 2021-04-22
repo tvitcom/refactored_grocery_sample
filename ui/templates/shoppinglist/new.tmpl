@@ -1,14 +1,14 @@
-{{ define "shopping_list/edit.tmpl" }}
+{{ define "shoppinglist/new.tmpl" }}
     <h1>New Shopping List</h1>
 
     {{ if .Error }}
         <div>Error</div>
         <div>{{ .Error }}</div>
     {{ end }}
-    
+    <p>
     <a href="/shopping-list">Back</a>
-
-    <form action="/shopping-list/update/{{ .Id }}" method="post" name="shopping-list-update">
+    </p>
+    <form action="/shopping-list" method="post" name="shopping-list-new">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" value={{ .Name }}><br>
 
@@ -16,7 +16,7 @@
         <input type="number" id="qty" name="qty" value={{ .Qty }}><br>
         <input type="text" id="unit" name="unit" value={{ .Unit }}><br>
 
-        <input type="reset" value="Clear">
+        <input type="reset" value="Clean">
         <input type="submit" value="Save">
     </form>
 

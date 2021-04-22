@@ -1,22 +1,29 @@
-package repo
+package model
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/types"
 	"github.com/dwahyudi/golang_grocery_sample/internal/util"
 )
 
-func IndexWithPage(limit int, offset int) []types.ShoppingList {
+type Shoppinglist struct {
+	Id    int64  `json:"id"`
+	Name  string `json:"name" form:"name" binding:"required"`
+	Qty   int    `json:"qty" form:"qty" binding:"required,gte=0"`
+	Unit  string `json:"unit" form:"unit" binding:"required"`
+	Error error
+}
+
+func IndexWithPage(limit int, offset int) []Shoppinglist {
 	db := util.DBConn()
 	defer db.Close()
 
-	query := "SELECT id, name, qty, unit FROM shopping_list LIMIT ? OFFSET ?"
+	query := "SELECT id, name, qty, unit FROM shoppinglist LIMIT ? OFFSET ?"
 	rows, err := db.Query(query, limit, offset)
 	defer rows.Close()
 	util.PanicError(err)
 
-	var shoppingLists []types.ShoppingList
+	var shoppingLists []Shoppinglist
 	for rows.Next() {
-		var sl types.ShoppingList
+		var sl Shoppinglist
 
 		err = rows.Scan(&sl.Id, &sl.Name, &sl.Qty, &sl.Unit)
 		shoppingLists = append(shoppingLists, sl)
@@ -30,17 +37,17 @@ func Count() int {
 	defer db.Close()
 
 	var count int
-	query := "SELECT COUNT(*) FROM shopping_list"
+	query := "SELECT COUNT(*) FROM shoppinglist"
 	row := db.QueryRow(query)
 	row.Scan(&count)
 	return count
 }
 
-func Create(shoppingList types.ShoppingList) (int64, error) {
+func Create(shoppingList Shoppinglist) (int64, error) {
 	db := util.DBConn()
 	defer db.Close()
 
-	query := "INSERT INTO shopping_list (name, qty, unit) VALUES(?, ?, ?);"
+	query := "INSERT INTO shoppinglist (name, qty, unit) VALUES(?, ?, ?);"
 	stmt, stmtErr := db.Prepare(query)
 	util.PanicError(stmtErr)
 
@@ -53,12 +60,12 @@ func Create(shoppingList types.ShoppingList) (int64, error) {
 	return id, queryErr
 }
 
-func FindById(id int64) (types.ShoppingList, error) {
-	var shoppingList types.ShoppingList
+func FindById(id int64) (Shoppinglist, error) {
+	var shoppingList Shoppinglist
 	db := util.DBConn()
 	defer db.Close()
 
-	query := "SELECT id, name, qty, unit FROM shopping_list WHERE id = ?;"
+	query := "SELECT id, name, qty, unit FROM shoppinglist WHERE id = ?;"
 
 	row := db.QueryRow(query, id)
 	row.Scan(&shoppingList.Id, &shoppingList.Name, &shoppingList.Qty, &shoppingList.Unit)
@@ -66,11 +73,11 @@ func FindById(id int64) (types.ShoppingList, error) {
 	return shoppingList, nil
 }
 
-func Put(id int64, shoppingList types.ShoppingList) (types.ShoppingList, error) {
+func Put(id int64, shoppingList Shoppinglist) (Shoppinglist, error) {
 	db := util.DBConn()
 	defer db.Close()
 
-	query := "UPDATE shopping_list SET name = ?, qty = ?, unit = ? WHERE id = ?"
+	query := "UPDATE shoppinglist SET name = ?, qty = ?, unit = ? WHERE id = ?"
 	stmt, stmtErr := db.Prepare(query)
 	util.PanicError(stmtErr)
 
@@ -81,11 +88,11 @@ func Put(id int64, shoppingList types.ShoppingList) (types.ShoppingList, error) 
 	return shoppingList, queryErr
 }
 
-func Delete(shoppingList types.ShoppingList) error {
+func Delete(shoppingList Shoppinglist) error {
 	db := util.DBConn()
 	defer db.Close()
 
-	query := "DELETE FROM shopping_list WHERE id = ?"
+	query := "DELETE FROM shoppinglist WHERE id = ?"
 	stmt, stmtErr := db.Prepare(query)
 	util.PanicError(stmtErr)
 

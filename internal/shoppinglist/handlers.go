@@ -1,8 +1,7 @@
-package htmlhandler
+package shoppinglist
 
 import (
-	"github.com/dwahyudi/golang_grocery_sample/internal/repo"
-	"github.com/dwahyudi/golang_grocery_sample/internal/types"
+	"github.com/dwahyudi/golang_grocery_sample/internal/shoppinglist/model"
 	"github.com/dwahyudi/golang_grocery_sample/internal/util"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -11,33 +10,33 @@ import (
 
 func ShowHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := repo.FindById(id)
+	shoppingList, _ := model.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
 		c.HTML(http.StatusNotFound, "common/not_found.tmpl", gin.H{})
 	} else {
-		c.HTML(http.StatusOK, "shopping_list/show.tmpl", shoppingList)
+		c.HTML(http.StatusOK, "shoppinglist/show.tmpl", shoppingList)
 	}
 }
 
 func NewHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "shopping_list/new.tmpl", gin.H{})
+	c.HTML(http.StatusOK, "shoppinglist/new.tmpl", gin.H{})
 }
 
 func CreateHandler(c *gin.Context) {
-	var shoppingList types.ShoppingList
+	var shoppingList model.Shoppinglist
 
 	// App level validation
 	bindErr := c.ShouldBind(&shoppingList)
 	if bindErr != nil {
 		shoppingList.Error = bindErr
-		c.HTML(http.StatusOK, "shopping_list/new.tmpl", shoppingList)
+		c.HTML(http.StatusOK, "shoppinglist/new.tmpl", shoppingList)
 		return
 	}
 
 	// Inserting data
-	id, insertErr := repo.Create(shoppingList)
+	id, insertErr := model.Create(shoppingList)
 	if insertErr != nil {
 		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
 		util.PanicError(insertErr)
@@ -48,7 +47,7 @@ func CreateHandler(c *gin.Context) {
 
 func EditHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := repo.FindById(id)
+	shoppingList, _ := model.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -56,29 +55,29 @@ func EditHandler(c *gin.Context) {
 		return
 	}
 
-	c.HTML(http.StatusOK, "shopping_list/edit.tmpl", shoppingList)
+	c.HTML(http.StatusOK, "shoppinglist/edit.tmpl", shoppingList)
 }
 
 func UpdateHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	var shoppingList types.ShoppingList
+	var shoppingList model.Shoppinglist
 
 	// App level validation
 	bindErr := c.ShouldBind(&shoppingList)
 	if bindErr != nil {
 		shoppingList.Error = bindErr
-		c.HTML(http.StatusOK, "shopping_list/edit.tmpl", shoppingList)
+		c.HTML(http.StatusOK, "shoppinglist/edit.tmpl", shoppingList)
 		return
 	}
 
-	foundShoppingList, _ := repo.FindById(id)
+	foundShoppingList, _ := model.FindById(id)
 	// Check if resource exist
 	if foundShoppingList.Id == 0 {
 		c.HTML(http.StatusNotFound, "common/not_found.tmpl", gin.H{})
 	}
 
 	// Updating data
-	shoppingList, updateErr := repo.Put(foundShoppingList.Id, shoppingList)
+	shoppingList, updateErr := model.Put(foundShoppingList.Id, shoppingList)
 	if updateErr != nil {
 		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
 		util.PanicError(updateErr)
@@ -89,20 +88,20 @@ func UpdateHandler(c *gin.Context) {
 
 func IndexHandler(c *gin.Context) {
 	limit, offset, page := util.GetLimitOffset(c)
-	shoppingLists := repo.IndexWithPage(limit, offset)
-	count := repo.Count()
+	shoppingLists := model.IndexWithPage(limit, offset)
+	count := model.Count()
 	pagination := util.ProcessPagination("shopping-list", count, page, limit)
 
 	m := make(map[string]interface{})
 	m["shoppingLists"] = shoppingLists
 	m["pagination"] = pagination
 
-	c.HTML(http.StatusOK, "shopping_list/index.tmpl", m)
+	c.HTML(http.StatusOK, "shoppinglist/index.tmpl", m)
 }
 
 func DeleteHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := repo.FindById(id)
+	shoppingList, _ := model.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -110,7 +109,7 @@ func DeleteHandler(c *gin.Context) {
 		return
 	}
 
-	err := repo.Delete(shoppingList)
+	err := model.Delete(shoppingList)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "common/internal_error.tmpl", gin.H{})
 		return
