@@ -1,7 +1,6 @@
 package routes
 
 import (
-	//shoppinglistapi "github.com/tvitcom/refactored_grocery_sample/internal/shoppinglist/api"
 	"github.com/gin-gonic/gin"
 	"github.com/tvitcom/refactored_grocery_sample/internal/shoppinglist"
 )
@@ -13,14 +12,6 @@ func Setup(r *gin.Engine) *gin.Engine {
 			"message": "pong",
 		})
 	})
-
-	// v1ShoppingList := r.Group("/v1/shopping-list")
-	// {
-	// 	v1ShoppingList.POST("/", shoppinglistapi.CreateHandler)
-	// 	v1ShoppingList.GET("/:id", shoppinglistapi.ShowHandler)
-	// 	v1ShoppingList.PUT("/:id", shoppinglistapi.PutHandler)
-	// 	v1ShoppingList.DELETE("/:id", shoppinglistapi.DeleteHandler)
-	// }
 
 	r.GET("shopping-list/", shoppinglist.IndexHandler)
 	r.GET("shopping-list/show/:id", shoppinglist.ShowHandler)
