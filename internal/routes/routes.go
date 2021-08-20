@@ -6,7 +6,7 @@ import (
 	"github.com/tvitcom/refactored_grocery_sample/internal/shoppinglist"
 )
 
-func Route(r *gin.Engine) *gin.Engine {
+func Setup(r *gin.Engine) *gin.Engine {
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{

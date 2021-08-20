@@ -10,6 +10,6 @@ func main() {
 	log.Print("Starting the golang grocery app with templates")
 	r := gin.Default()
 	r.LoadHTMLGlob("./ui/templates/**/*")
-	routes.Route(r)
+	routes.Setup(r)
 	r.Run()
 }
