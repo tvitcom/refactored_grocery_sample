@@ -61,7 +61,7 @@ func Create(shoppingList Shoppinglist) (int64, error) {
 	return id, queryErr
 }
 
-func FindById(id int64) (Shoppinglist, error) {
+func FindById(id int64) Shoppinglist {
 	var shoppingList Shoppinglist
 	db := util.GetDbConn()
 	defer db.Close()
@@ -71,7 +71,7 @@ func FindById(id int64) (Shoppinglist, error) {
 	row := db.QueryRow(query, id)
 	row.Scan(&shoppingList.Id, &shoppingList.Name, &shoppingList.Qty, &shoppingList.Unit)
 
-	return shoppingList, nil
+	return shoppingList
 }
 
 func Put(id int64, shoppingList Shoppinglist) (Shoppinglist, error) {

@@ -10,7 +10,7 @@ import (
 
 func ShowHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := model.FindById(id)
+	shoppingList:= model.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -47,7 +47,7 @@ func CreateHandler(c *gin.Context) {
 
 func EditHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := model.FindById(id)
+	shoppingList:= model.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
@@ -70,7 +70,7 @@ func UpdateHandler(c *gin.Context) {
 		return
 	}
 
-	foundShoppingList, _ := model.FindById(id)
+	foundShoppingList:= model.FindById(id)
 	// Check if resource exist
 	if foundShoppingList.Id == 0 {
 		c.HTML(http.StatusNotFound, "common/not_found.tmpl", gin.H{})
@@ -101,7 +101,7 @@ func IndexHandler(c *gin.Context) {
 
 func DeleteHandler(c *gin.Context) {
 	id := util.GetInt64IdFromReqContext(c)
-	shoppingList, _ := model.FindById(id)
+	shoppingList:= model.FindById(id)
 
 	// Check if resource exist
 	if shoppingList.Id == 0 {
