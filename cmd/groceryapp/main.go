@@ -9,7 +9,7 @@ import (
 func main() {
 	log.Print("Starting the golang grocery app with templates")
 	r := gin.Default()
-	r.LoadHTMLGlob("./ui/templates/**/*")
+	r.LoadHTMLGlob("./web/templates/**/*")
 	routes.Setup(r)
 	r.Run()
 }
