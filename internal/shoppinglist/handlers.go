@@ -3,7 +3,7 @@ package shoppinglist
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/tvitcom/refactored_grocery_sample/internal/shoppinglist/model"
-	"github.com/tvitcom/refactored_grocery_sample/internal/util"
+	"github.com/tvitcom/refactored_grocery_sample/pkg/util"
 	"net/http"
 	"strconv"
 )

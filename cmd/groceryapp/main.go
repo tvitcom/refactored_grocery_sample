@@ -11,5 +11,5 @@ func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("./web/templates/**/*")
 	routes.Setup(r)
-	r.Run()
+	r.Run("0.0.0.0:3000")
 }

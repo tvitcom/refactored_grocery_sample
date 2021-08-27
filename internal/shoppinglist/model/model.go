@@ -2,7 +2,7 @@ package model
 
 import (
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/tvitcom/refactored_grocery_sample/internal/util"
+	"github.com/tvitcom/refactored_grocery_sample/pkg/util"
 )
 
 type Shoppinglist struct {
